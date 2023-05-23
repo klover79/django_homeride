@@ -95,7 +95,10 @@ class UserProfile(models.Model):
     
     def full_address(self):
         return f'{self.address_line_1} {self.address_line_2}'
-
+    
+    class Meta:
+        verbose_name        = 'User Profile'
+        verbose_name_plural = 'User Profiles'
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):

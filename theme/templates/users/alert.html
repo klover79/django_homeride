@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% block content %}
+
+<div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="m-2">
+            <button class="bg-emerald-500 p-4 rounded-2xl shadow-lg hover:bg-emerald-200">
+                Alert!
+            </button>
+        </div>
+    </form>
+</div>
+    
+{% endblock content %}

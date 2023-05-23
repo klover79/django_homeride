@@ -1,19 +1,46 @@
+{% load static %}
 {% load static tailwind_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-    <title>Django Tailwind</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		{% tailwind_css %}
-	</head>
 
-	<body class="bg-gray-50 font-serif leading-normal tracking-normal">
-		<div class="container mx-auto">
-			<section class="flex items-center justify-center h-screen">
-				<h1 class="text-5xl">Django + Tailwind = ❤️</h1>
-			</section>
+<head>
+	<title>Picxel Studio @ PBMS</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	{% tailwind_css %}
+	<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+</head>
+
+<body class="bg-gray-50 leading-normal tracking-normal ">
+	<div class="">
+		<div class="flex">			
+			<div>{% include "includes/aside.html" %}</div>
+			<div class="bg-gray-800  w-screen">
+				<div class="">{% include "includes/alerts.html" %}</div>
+				<div class="p-4">
+					{% block content %}
+					  
+					{% endblock content %}					
+				</div>
+			</div>			
 		</div>
-	</body>
+	</div>
+    <script>
+        setTimeout(function() {
+            document.getElementById('myAlert').style.display = 'none';
+        }, 5000);  // Adjust the duration (in milliseconds) as needed
+    </script>
+	<script>
+        $(document).ready(function() {
+            // Handle the "select all" checkbox change event
+            $("#select-all").change(function() {
+                $(".checkbox-item").prop("checked", $(this).prop("checked"));
+            });
+        });
+    </script>
+	
+</body>
+
 </html>

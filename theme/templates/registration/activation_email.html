@@ -1,0 +1,14 @@
+{% extends 'base_public.html' %}
+{% load static tailwind_tags %}
+{% load tailwind_filters %}
+
+
+{% block content %}
+
+  <div class="mx-auto max-w-2xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 mt-10">
+    <p>We have sent email to {{user.email}}</p>
+  </div>
+
+
+
+{% endblock content %}

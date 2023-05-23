@@ -1,0 +1,9 @@
+<p class="text-red-700 dark:text-red-500">
+    {% if form.errors %}
+      {% for field in form %}
+        {% for error in field.errors %}
+            {{ error|escape }} <br>
+        {% endfor %}
+      {% endfor %}
+    {% endif %} 
+</p>

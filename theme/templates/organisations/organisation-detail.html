@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% block content %}
+
+<section class="bg-white dark:bg-gray-900 rounded-xl">
+    <div class="container px-6 py-10 mx-auto">
+        <h1 class="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl dark:text-white">organisation details</h1>
+
+        <p class="mt-4 text-gray-500 xl:mt-6 dark:text-gray-300 items-center">
+            <span class="underline decoration-blue-500 mr-2 font-semibold text-lg">Organisation:</span> {{organisations.organisation_name}}
+        </p>
+
+        <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 md:grid-cols-2 xl:grid-cols-3">
+            <div class="p-8 space-y-3 border-2 border-blue-400 dark:border-blue-300 rounded-xl">
+                <span class="inline-block text-blue-500 dark:text-blue-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+                    </svg>
+                </span>
+
+                <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">Contact</h1>
+
+                <p class="text-gray-500 dark:text-gray-300">
+                    <span class="">{{organisations.address_line_1}},</span>
+                    <span class="">{{organisations.address_line_2}},</span>
+                    <span class="">{{organisations.postcode}},</span>
+                    <span class="">{{organisations.city}},</span>
+                    <span class="">{{organisations.state}},</span>
+                    <span class="">{{organisations.country}}</span>
+                    <span class="block text-xs">Phone:{{organisations.contact_number}}</span>
+                    <span class="block text-xs">Email:{{organisations.email_address}}</span>
+                </p>
+
+                <a href="#" class="inline-flex p-2 text-blue-500 capitalize transition-colors duration-300 transform bg-blue-100 rounded-full rtl:-scale-x-100 dark:bg-blue-500 dark:text-white hover:underline hover:text-blue-600 dark:hover:text-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </a>
+            </div>
+
+            <div class="p-8 space-y-3 border-2 border-blue-400 dark:border-blue-300 rounded-xl">
+                <span class="inline-block text-blue-500 dark:text-blue-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+                    </svg>
+                </span>
+
+                <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">Account Status</h1>
+
+                <p class="text-gray-500 dark:text-gray-300">
+                    Gateway Account Number : <span class="text-xs block">{{organisations.account_number}}</span>
+                    {% if organisations.status == True %}
+                        Account Status : <span class="text-xs block">Active</span>
+                    {% else %}
+                        Account Status : <span class="text-xs block">Inactive</span>
+                    {% endif %} 
+                    
+                </p>
+
+                <a href="#" class="inline-flex p-2 text-blue-500 capitalize transition-colors duration-300 transform bg-blue-100 rounded-full rtl:-scale-x-100 dark:bg-blue-500 dark:text-white hover:underline hover:text-blue-600 dark:hover:text-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </a>
+            </div>
+
+            <div class="p-8 space-y-3 border-2 border-blue-400 dark:border-blue-300 rounded-xl">
+                <span class="inline-block text-blue-500 dark:text-blue-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                    </svg>
+                </span>
+
+                <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">Activity Date</h1>
+
+                <p class="text-gray-500 dark:text-gray-300">
+                    <span class="">Active Start: {{organisations.active_start_date|date}}</span>
+                    <span class="block">Active End: {{organisations.active_end_date|date}}</span>
+                    <span class="block">Created: {{organisations.created_date|date}}</span>
+                    <span class="block">Modified: {{organisations.modified_date|date}}</span>
+                </p>
+
+                <a href="#" class="inline-flex p-2 text-blue-500 capitalize transition-colors duration-300 transform bg-blue-100 rounded-full rtl:-scale-x-100 dark:bg-blue-500 dark:text-white hover:underline hover:text-blue-600 dark:hover:text-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- manager list  -->
+
+<section class="container px-4 mx-auto mt-10">
+    <div class="mb-4">
+        <p class="mt-4 text-gray-500 xl:mt-6 dark:text-gray-300 items-center">
+            <span class="underline decoration-blue-500 mr-2 font-semibold text-lg">Managers:</span>( {{manager_list.count}} )
+        </p>
+    </div>
+    <div class="flex flex-col">
+        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-800">
+                            <tr>
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-6 h-6">
+                                        <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z"></path>
+                                        <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z"></path>
+                                      </svg>
+                                </th>
+
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    User
+                                </th>
+
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    Role
+                                </th>
+
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    Status
+                                </th>
+
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    Create Date
+                                </th>
+
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    Modified Date
+                                </th>                                
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+                            {% for manager in manager_list  %}
+                            <tr>
+                                <td class="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                                    <div class="inline-flex items-center gap-x-3">
+                                        <a href="#" class="">
+                                            <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-gray-500 bg-gray-100/60 dark:bg-gray-800">
+                                                <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4">
+                                                    <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z"></path>
+                                                  </svg>
+                                                  <h2 class="text-sm font-normal">Edit</h2>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </td>
+                                <!-- users  -->
+                                <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                                    <div class="flex items-center gap-x-2">
+                                        <!-- <img class="object-cover w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" alt=""> -->
+                                        <img class="object-cover w-8 h-8 rounded-full" src="{{manager.user.userprofile.profile_picture.url}}" alt="">
+                                        <div>
+                                            <h2 class="text-sm font-medium text-gray-800 dark:text-white ">{{manager.user.full_name}}</h2>
+                                            <p class="text-xs font-normal text-gray-600 dark:text-gray-400">{{manager.user.email}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <!-- Role -->
+                                <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap capitalize">{{manager.organisation_role}}</td>
+                                
+                                <!-- status  -->
+
+                                
+                                <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                {% if manager.active  %}
+                                    <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60 dark:bg-gray-800">
+                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+
+                                        <h2 class="text-sm font-normal">Active</h2>
+                                    </div>
+                                {% else %}
+                                    <div class="inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2 bg-red-100/60 dark:bg-gray-800">
+                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+
+                                        <h2 class="text-sm font-normal">Inactive</h2>
+                                    </div>
+                                {% endif %}
+                                </td>    
+                                
+
+                                <!-- created date  -->
+                                <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">1st May 2023</td>
+                                <!-- modified date  -->
+                                <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">1st May 2023</td>
+                            </tr>
+                            {% endfor %}
+                       </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-6">
+        <a href="#" class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+            </svg>
+
+            <span>
+                previous
+            </span>
+        </a>
+
+        <div class="items-center hidden md:flex gap-x-3">
+            <a href="#" class="px-2 py-1 text-sm text-blue-500 rounded-md dark:bg-gray-800 bg-blue-100/60">1</a>
+            <a href="#" class="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">2</a>
+            <a href="#" class="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">3</a>
+            <a href="#" class="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">...</a>
+            <a href="#" class="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">12</a>
+            <a href="#" class="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">13</a>
+            <a href="#" class="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">14</a>
+        </div>
+
+        <a href="#" class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+            <span>
+                Next
+            </span>
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+            </svg>
+        </a>
+    </div>
+</section>
+
+
+{% endblock content %}
+
+
+
+
+

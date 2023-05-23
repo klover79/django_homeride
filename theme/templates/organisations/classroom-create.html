@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static tailwind_tags %}
+{% load tailwind_filters %}
+{% block content %}
+
+
+<section class="p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+  {% include "organisations/header.html" %}
+
+<div class="sm:flex sm:items-center sm:justify-between">
+    <div>
+        <div class="flex items-center gap-x-3">
+            <h2 class="text-lg font-medium text-gray-800 dark:text-white">Class Room</h2>
+            <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">Create New</span>
+        </div>
+
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">These form is to register new class room for <span class="text-blue-600 dark:text-blue-400">{{ manager_organisation_name }}</span> </p>
+    </div>
+
+    <div class="flex items-center mt-4 gap-x-3">
+      
+      <a href="{% url 'organisations:classroom-list' %}" class="">
+        <button class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600">
+          <svg class="h-6 w-6"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <circle cx="12" cy="12" r="10" />  <polyline points="12 8 8 12 12 16" />  <line x1="16" y1="12" x2="8" y2="12" />
+          </svg>
+          <span>Back</span>
+        </button>
+      </a>
+    </div>
+</div>
+
+
+  <div class="p-6 max-w-md m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-900 mt-10">
+    <form class="mt-6" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% include "includes/form_errors.html" %}  
+      {{form|crispy}}  
+
+        <button class="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+          <div class="flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h2 class="px-2">Create</h2>
+          </div>
+      </button>
+          
+      </div>
+
+    </form>
+
+
+
+  </div>
+</section>
+{% endblock content %}

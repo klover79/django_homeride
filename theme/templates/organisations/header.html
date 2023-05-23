@@ -1,0 +1,17 @@
+<div class="flex mx-auto">
+    <div class="flex items-center m-2">
+      <img class="w-32 h-32 rounded-full mr-4 ring ring-gray-300 dark:ring-gray-600" src="{{user.userprofile.profile_picture.url}}" alt="profile">
+      <div>
+        <h1 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Manager Organisation: {{manager_organisation_name}}</h1>
+        <h2 class="text-md font-semibold text-gray-700 capitalize dark:text-white">Organisation Role: <span class="text-sm text-blue-500 mr-4 capitalize">{{manager_organisation_role}}</span></h2>
+        <h2 class="text-sm text-blue-500 mr-4">{{user.email}}</h2>
+        <div class="{%if user.userprofile.is_active %} bg-green-500 {%else%}  bg-red-500 {%endif%} w-24 py-1 px-2 rounded-full mt-2 animate-pulse items-center">              
+            {% if user.userprofile.is_active %}
+            <p class="text-sm uppercase text-white text-center">Verified</p>
+            {% else %}
+            <p class="text-sm uppercase text-white text-center">Unverified</p>
+            {% endif %}            
+        </div>            
+      </div>         
+    </div>
+</div>

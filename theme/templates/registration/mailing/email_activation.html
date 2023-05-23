@@ -1,0 +1,13 @@
+{% autoescape off %}
+Hi {{ user.user_fullname }},
+
+Please click on the below link to confirm your registration:
+
+http://{{activation_url}}
+
+If this was sent not intended to you, please ignore or delete this email.
+
+Thanks
+PBMS Admin
+{% endautoescape %}
+  

@@ -37,6 +37,10 @@ class OrganisationManager(models.Model):
     
     def __str__(self) -> str:
         return self.organisation.organisation_name
+    
+    class Meta:
+        verbose_name        = 'Organisation Manager'
+        verbose_name_plural = 'Organisation Managers'
 
 
 class OrganisationPayment(models.Model):
@@ -62,5 +66,5 @@ class OrganisationClass(models.Model):
 
     class Meta:
         unique_together     = ('name', 'grade', 'organisation')
-        verbose_name        = 'dependent class'
-        verbose_name_plural = 'dependent classes'
+        verbose_name        = 'Organisation Classroom'
+        verbose_name_plural = 'Organisation Classrooms'
