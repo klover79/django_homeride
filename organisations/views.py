@@ -77,7 +77,8 @@ class ClassroomDeleteView(generic.DeleteView):
     context_object_name = "classroom"
     model = OrganisationClass
 
-    def get_queryset(self):
+    def get_queryset(self, **kwargs):
+
         organisation = OrganisationManager.objects.get(user=self.request.user).organisation
         return OrganisationClass.objects.filter(organisation=organisation)
     
