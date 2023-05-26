@@ -68,3 +68,7 @@ class OrganisationClass(models.Model):
         unique_together     = ('name', 'grade', 'organisation')
         verbose_name        = 'Organisation Classroom'
         verbose_name_plural = 'Organisation Classrooms'
+       
+
+    def __str__(self) -> str:
+        return f"{self.grade} : {self.name}"

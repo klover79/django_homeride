@@ -5,27 +5,22 @@
 
 
 <section class="p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-  {% include "managers/header.html" %}
 
 
-  <div class=" p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-900 mt-10">
 
+  <div class="p-6 max-w-md m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-900 mt-10">
 
     <form class="mt-6" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       {% include "includes/form_errors.html" %}
-      
-
-      {{form|crispy}}
+     
+      {{form_user|crispy}}
+      {{form_dependent|crispy}}
           <button class="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
-             {% if user.userprofile.is_active  %} Update {% else %} Update and Send <span class="text-red-600 font-semibold">Activation Link</span> {% endif %} 
+             Create  
           </button>
-          
-      </div>
-    </form>
-
-
-
+    </form>     
   </div>
+
 </section>
 {% endblock content %}
