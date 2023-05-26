@@ -8,19 +8,72 @@
 
 
 
-  <div class="p-6 max-w-md m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-900 mt-10">
+  <div class="p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-900 mt-10">
 
     <form class="mt-6" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       {% include "includes/form_errors.html" %}
      
-      {{form_user|crispy}}
-      {{form_dependent|crispy}}
-          <button class="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
-             Create  
-          </button>
+      <div class="flex w-full m-4 md:grid-cols-1 lg:grid-cols-2 justify-evenly">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Dependent Profile</h2>
+          <div class="mt-2">
+            {{form_user|crispy}}
+          </div>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Dependent Organisation</h2>
+          <div class="mt-2">
+            <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Organisation/College/School</label>
+              {{form_dependent.organisation}}
+          </div>
+          <div class="mt-2">
+            <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Classroom</label>
+              {{form_dependent.organisation_class}}
+          </div>
+          <div class="mt-2">
+            <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Identity Card Number</label>
+              {{form_dependent.identity}}
+          </div>
+        </div>
+
+      </div>
+      
+      <button class="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+          Create  
+      </button>
     </form>     
   </div>
 
 </section>
+<script>
+  $(document).ready(function() {
+      // Get the select elements
+      var controllingSelect = $('#id_organisation');
+      var dependentSelect = $('#id_organisation_class');
+
+      // Disable dependent select initially
+      dependentSelect.prop('disabled', true);
+
+      // Event handler for controlling select change
+      controllingSelect.change(function() {
+          var controllingId = $(this).val();
+          if (controllingId) {
+              // Make Ajax request to get dependent choices
+              $.getJSON('{% url "dependents:get_dependent_choices" %}', {controlling_id: controllingId}, function(data) {
+                  // Clear and enable dependent select
+                  dependentSelect.empty().prop('disabled', false);
+
+                  // Add options to dependent select
+                  $.each(data, function(index, item) {
+                      dependentSelect.append($('<option>').val(item.id).text(item.name));
+                  });
+              });
+          } else {
+              // Clear and disable dependent select if controlling select is empty
+              dependentSelect.empty().prop('disabled', true);
+          }
+      });
+  });
+</script>
 {% endblock content %}
