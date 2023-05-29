@@ -163,5 +163,5 @@ CRISPY_TEMPLATE_PACK = "tailwind"
 
 # login 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = '/users' # set your login redirect to url
+LOGIN_REDIRECT_URL = 'home' # set your login redirect to url
 LOGOUT_REDIRECT_URL = 'landing-page'  # set your logout URL

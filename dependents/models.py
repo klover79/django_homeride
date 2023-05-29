@@ -14,4 +14,7 @@ class Dependent(models.Model):
 
     class Meta:
         unique_together = ('user', 'organisation')
+
+    def __str__(self) -> str:
+        return f"{self.user.first_name} {self.user.last_name}"   
         

@@ -9,7 +9,7 @@
         <div class="flex items-center m-2">
           <img class="w-32 h-32 rounded-full m-2 ring ring-gray-300 dark:ring-gray-600" src="{{user.userprofile.profile_picture.url}}" alt="profile">
           <div>
-            <h1 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Create Dependent</h1>
+            <h1 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Update Dependent</h1>
             <h2 class="text-sm text-blue-500 mr-4">{{user.email}}</h2>
             <div class="{%if user.userprofile.is_active %} bg-green-500 {%else%}  bg-red-500 {%endif%} w-24 py-1 px-2 rounded-full mt-2 animate-pulse items-center">              
                 {% if user.userprofile.is_active %}
@@ -55,11 +55,11 @@
              
                   <div class="">
                     <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Organisation/College/School</label>
-                      {{form_dependent.organisation}}
+                    <h2 class="text-gray-700 font-semibold text-sm dark:text-white">{{dependent.organisation}}</h2> 
                   </div>
                   <div class="">
                     <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Classroom</label>
-                      {{form_dependent.organisation_class}}
+                    <h2 class="text-gray-700 font-semibold text-sm dark:text-white">{{dependent.organisation_class}}</h2> 
                   </div>
                   <div class="">
                     <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Identity Card Number</label>
@@ -73,7 +73,7 @@
       </div>
       <div class="mt-6">
           <button class="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
-             Create Dependent
+             Update Dependent
           </button>
           
       </div>
@@ -90,7 +90,7 @@
       var dependentSelect = $('#id_organisation_class');
 
       // Disable dependent select initially
-      dependentSelect.prop('disabled', true);
+      dependentSelect.prop('disabled', true);  
 
       // Event handler for controlling select change
       controllingSelect.change(function() {

@@ -10,6 +10,7 @@ from .models import User, UserProfile
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from dependents.views import get_parent_dependent_list
 
 # import for activation 
 from django.urls import reverse_lazy
@@ -25,6 +26,14 @@ from . import mailing
 
 class LandingPageAuthenticatedView(LoginRequiredMixin, generic.TemplateView):
     template_name = "users/user_profile_detail.html"
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        # get_list of dependents if exists 
+        context = get_parent_dependent_list(self.request)
+
+        return context
 
 class UnauthorizedAccessView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'users/unauthorized_access.html'
