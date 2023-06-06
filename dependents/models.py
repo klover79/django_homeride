@@ -11,6 +11,12 @@ class Dependent(models.Model):
     organisation_class  = models.ForeignKey(OrganisationClass, null=True, on_delete=models.SET_NULL)
     created_date        = models.DateTimeField(auto_now_add=True)     
     modified_date       = models.DateTimeField(auto_now=True)
+    is_approved         = models.BooleanField(default=False)
+    approved_date       = models.DateTimeField(null=True)
+    approved_by         = models.CharField(max_length=50, null=True, blank=True)
+    is_rejected         = models.BooleanField(default=False)
+    rejected_date       = models.DateTimeField(null=True)
+    rejected_by         = models.CharField(max_length=50, null=True, blank=True)
 
     class Meta:
         unique_together = ('user', 'organisation')

@@ -1,4 +1,6 @@
-from typing import Any, Dict
+from typing                 import Any, Dict
+from django.db.models.query import QuerySet 
+from django.db.models       import Q
 from django.forms.models    import BaseModelForm
 from django.http            import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts       import render, redirect, reverse
@@ -6,9 +8,11 @@ from django.views           import generic
 from .forms                 import DependentsCreateForm, DependentCustomUserCreationForm, DependentUpdateForm
 from .models                import Dependent
 from users.models           import User, UserProfile
-from organisations.models   import Organisation, OrganisationClass
+from organisations.models   import Organisation, OrganisationClass, OrganisationManager
 from django.utils.crypto    import get_random_string
 from django.contrib         import messages
+from django.utils           import timezone
+from django.core.paginator  import Paginator
 
 
 def get_dependent_choices(request):
@@ -118,5 +122,88 @@ def get_parent_dependent_list(request):
         return context
     else:
         pass 
+
+
+# TODO:organisationmixin
+class DependentOrganisationUnverifiedListView(generic.ListView):
+    model               = Dependent
+    template_name       = 'dependents/dependent_unverified_list.html'
+    context_object_name = 'dependents'
+    paginate_by = 50
+    
+    
+    def get_queryset(self) -> QuerySet[Any]:    
+        #find dependent that is within user organisation with student dependent info is_approved is false and is_rejected is false
+        # queryset = Dependent.objects.filter(user__userprofile__is_active=False, organisation__organisationmanager__user=self.request.user)     
+        queryset = Dependent.objects.filter(is_approved=False, is_rejected=False, organisation__organisationmanager__user=self.request.user)
+        return queryset
+    
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super(DependentOrganisationUnverifiedListView, self).get_context_data(**kwargs)
+        
+        search_query = self.request.GET.get('q', '')  
+        queryset = Dependent.objects.filter(is_approved=False, is_rejected=False, organisation__organisationmanager__user=self.request.user).order_by('user__first_name','organisation_class__name')
+        
+        if search_query:
+            queryset = queryset.filter(
+                Q(identity__icontains = search_query)   |
+                Q(user__first_name__icontains = search_query)   |
+                Q(user__last_name__icontains = search_query)    |
+                Q(organisation_class__name__icontains = search_query) |
+                Q(organisation_class__grade__icontains = search_query) |
+                Q(parent__first_name__icontains = search_query) |
+                Q(parent__last_name__icontains = search_query) 
+            ).order_by('user__first_name','organisation_class__name')
+        
+        count_dependents = queryset.count
+        paginator = Paginator(queryset, self.paginate_by)
+        # Get the current page number from the request's GET parameters
+        page = self.request.GET.get('page')
+        # Get the corresponding page object from the Paginator
+        page_obj = paginator.get_page(page)
+
+        context = {
+        'custom_page_obj'   :   page_obj,
+        'dependents'        :   page_obj,
+        'search_query'      :   search_query,
+        'count_dependents'  :   count_dependents, 
+        } 
+
+        return context
+
+# TODO: organisation manager mixin
+def approve_or_reject_dependent_organisation(request):
+    if request.method == 'POST':
+        selected_ids = request.POST.getlist('selected_rows')
+        count = len(selected_ids)       
+        dependents = Dependent.objects.filter(pk__in=selected_ids)
+        #approved
+        if 'approve' in request.POST:
+            dependents.update(is_approved=True, 
+                              approved_date=timezone.now(), 
+                              approved_by=request.user.id,
+                              is_rejected=False,
+                              rejected_date=None, 
+                              rejected_by=None,
+                              )
+            messages.add_message(request, messages.SUCCESS, f"{count}{' dependent(s) approved'}") 
+        #rejected       
+        else: 
+            dependents.update(is_rejected=True,
+                              rejected_date=timezone.now(), 
+                              rejected_by=request.user.id,
+                              is_approved=False, 
+                              approved_date=None, 
+                              approved_by=None
+                              )
+            messages.add_message(request, messages.ERROR, f"{count}{' dependent(s) rejected'}")
+        return redirect('dependents:dependent-unverified-list')    
+    else: 
+        return redirect('dependents:dependent-unverified-list')           
+
+
+
+# TODO: Pagination with preferred number of rows with max 50 per page
+# TODO: create page to rollback approval/rejection. 
 
 

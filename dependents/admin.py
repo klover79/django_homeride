@@ -3,7 +3,7 @@ from .models import Dependent
 
 class DependentAdmin(admin.ModelAdmin):
     list_display = ('identity','user', 'parent','organisation','organisation_class',)
-    list_display_links =('parent','user',)
+    list_display_links =('parent','user','identity',)
     filter_horizontal=()
     list_filter=('parent','organisation',)
     fieldsets=()
