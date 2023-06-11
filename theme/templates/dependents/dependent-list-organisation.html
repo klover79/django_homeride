@@ -8,37 +8,36 @@
   {% include "organisations/header.html" %}
 </section>
 <section class="container px-4 mx-auto mt-4">
-    <div class="sm:flex sm:items-center sm:justify-between">
-
-
-        <div>
-            <div class="flex items-center gap-x-3">
-                <h2 class="text-lg font-medium text-gray-800 dark:text-white">Unverified Registered Dependents</h2>
-                <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">Total: {{count_dependents}} dependent(s)</span>
+ 
+    <!-- search  -->
+    <form action="" method=""> 
+        <div class="flex items-center w-full ring-1 ring-gray-300 dark:ring-gray-700 rounded-lg p-2">
+            
+            <div class="flex items-center pl-3 w-1/6">
+                {{form_search.type_record}}
             </div>
-
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Registered student under this organisation</p>
-        </div>
-    </div>
-
-    <div class="mt-6 md:flex md:items-center md:justify-between">
-        <!-- search  -->
-        <form action="">
-            <div class="flex">
-                <div class="relative flex items-center mt-4 md:mt-0">
-                    <span class="absolute">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-3 text-gray-400 dark:text-gray-600">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                        </svg>
-                    </span>
-    
-                    <input name="q" value="{{ search_query }}" type="text" placeholder="Search" class="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
+            <div class="w-5/6 items-center">
+                <div class="w-4/6">
+                    {{form_search.search_field}}
+                </div>
+                <div class="w-2/6 flex items-center">
+                    <div>
+                        {{form_search.page_record}}
+                    </div>
+                    <div class="mt-2 ml-1 inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
+                        <button class="flex items-center justify-center px-5 py-3 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+                            <p class="mr-2">Search</p> 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-3 text-gray-400 dark:text-gray-600">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                            </svg>
+                        </button>
+                        
+                    </div>
+                    
                 </div>
             </div>
-            
-        </form>
-    </div>
-
+        </div>
+    </form>  
 
     <div class="flex flex-col mt-6">
         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -75,23 +74,36 @@
                     </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                        <form action="{% url 'dependents:approve_or_reject_dependent_organisation' %}" method="POST" onsubmit="return confirmDelete();">
+                        <form action="{% url 'dependents:approve_or_reject_dependent_organisation' %}" method="POST">
                         {% csrf_token %}
-                        <div class="m-4 inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
-                            <button name="approve" class="flex items-center  px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
-                                <p class="mr-2">Approve Selected</p> 
-                                <svg class="h-8 w-8 text-green-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 5H7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2h-2" />  <rect x="9" y="3" width="6" height="4" rx="2" />  <path d="M9 14l2 2l4 -4" /></svg>
+
+                        <div class="flex p-4">
+
+                            <button name="approve" {{button_approve}} class="rounded-l-xl ring-1 ring-gray-700 dark:bg-gray-900 dark:border-gray-700 flex items-center px-4 py-2 text-sm font-medium text-gray-600 transition-colors duration-200 sm:text-base sm:px-6 dark:hover:bg-gray-800 dark:text-gray-300 gap-x-3 hover:bg-gray-100">
+                                <svg class="h-8 w-8 text-green-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 5H7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2h-2" />  <rect x="9" y="3" width="6" height="4" rx="2" /><path d="M9 14l2 2l4 -4" /></svg>
+                        
+                                <span>Approve</span>
+                            </button>
+                        
+                            <button name="reject" {{button_reject}} class="ring-1 ring-gray-700 dark:bg-gray-900 dark:border-gray-700 flex items-center px-4 py-2 text-sm font-medium text-gray-600 transition-colors duration-200 sm:text-base sm:px-6 dark:hover:bg-gray-800 dark:text-gray-300 gap-x-3 hover:bg-gray-100">
+                                <svg class="h-8 w-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 5H7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2h-2" />  <rect x="9" y="3" width="6" height="4" rx="2" />  
+                                    <path d="M10 12l4 4m0 -4l-4 4" />
+                                </svg>
+                        
+                                <span>Reject</span>
+                            </button>
+                        
+                            <button name="delete" onclick="return confirmDelete();" class="ring-1 rounded-r-xl ring-gray-700 dark:bg-gray-900 dark:border-gray-700 flex items-center px-4 py-2 text-sm font-medium text-gray-600 transition-colors duration-200 sm:text-base sm:px-6 dark:hover:bg-gray-800 dark:text-gray-300 gap-x-3 hover:bg-gray-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 sm:w-6 sm:h-6">
+                                    <path clip-rule="evenodd" fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"></path>
+                                </svg>
+                        
+                                <span>Delete</span>
                             </button>
                         </div>
 
-                         <div class="m-4 inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
-                            <button name="reject" class="flex items-center  px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
-                                <p class="mr-2">Reject Selected</p> 
-                                <svg class="h-8 w-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 5H7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2h-2" />  <rect x="9" y="3" width="6" height="4" rx="2" />  <path d="M10 12l4 4m0 -4l-4 4" /></svg>
-                            </button>
-                        </div>
 
-                        {% for dependent in dependents  %}  
+                           {% for dependent in dependents  %}  
                         
                             <tr>
                             <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
@@ -101,21 +113,18 @@
                             </td>
                             <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                 <div>
-                                    <h2 class="font-medium text-gray-800 dark:text-white ">{{dependent.identity}}</h2>
-                                    
+                                    <h2 class="font-medium text-gray-800 dark:text-white">{{dependent.identity}}</h2>                                    
                                 </div>
                             </td>
                             <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                 <div>
-                                    <h2 class="font-medium text-gray-800 dark:text-white ">{{dependent.user.full_name}}</h2>
-                                    
+                                    <h2 class="font-medium text-gray-800 dark:text-white">{{dependent.user.full_name}}</h2>                                    
                                 </div>
                             </td>
                                 
                             <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                 <div>
-                                    <h2 class="font-medium text-gray-800 dark:text-white ">{{dependent.organisation_class.grade}}</h2>
-                                    
+                                    <h2 class="font-medium text-gray-800 dark:text-white">{{dependent.organisation_class.grade}}</h2>                                    
                                 </div>
                             </td>
 
@@ -135,7 +144,7 @@
 
                             <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                 <div class="w-8 px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100">
-                                    <a href="#" class="">
+                                    <a href="{% url 'dependents:dependent-organisation-update' dependent.pk %}" class="">
                                         <svg class="h-6 w-6 text-gray-500 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path clip-rule="evenodd" fill-rule="evenodd" d="M4.5 3.75a3 3 0 00-3 3v10.5a3 3 0 003 3h15a3 3 0 003-3V6.75a3 3 0 00-3-3h-15zm4.125 3a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zm-3.873 8.703a4.126 4.126 0 017.746 0 .75.75 0 01-.351.92 7.47 7.47 0 01-3.522.877 7.47 7.47 0 01-3.522-.877.75.75 0 01-.351-.92zM15 8.25a.75.75 0 000 1.5h3.75a.75.75 0 000-1.5H15zM14.25 12a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H15a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3.75a.75.75 0 000-1.5H15z"></path>
                                           </svg>
@@ -162,10 +171,9 @@
     {% include "includes/pagination.html" with page_obj=custom_page_obj %}
 </section>
 
-
 <script>
     function confirmDelete() {
-      return confirm("Are you sure you want to execute the selected rows?");
+      return confirm("Are you sure you want to delete the selected rows?");
     }
   </script>
 

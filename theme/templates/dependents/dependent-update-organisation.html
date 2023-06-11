@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static tailwind_tags %}
+{% load tailwind_filters %}
+{% block content %}
+
+
+<section class="p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+    <div class="flex mx-auto">
+        <div class="flex items-center m-2">
+          <img class="w-32 h-32 rounded-full m-2 ring ring-gray-300 dark:ring-gray-600" src="{{user.userprofile.profile_picture.url}}" alt="profile">
+          <div>
+            <h1 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Update Dependent</h1>
+            <h2 class="text-sm text-blue-500 mr-4">{{user.email}}</h2>
+            <div class="{%if user.userprofile.is_active %} bg-green-500 {%else%}  bg-red-500 {%endif%} w-24 py-1 px-2 rounded-full mt-2 animate-pulse items-center">              
+                {% if user.userprofile.is_active %}
+                <p class="text-sm uppercase text-white text-center">Verified</p>
+                {% else %}
+                <p class="text-sm uppercase text-white text-center">Unverified</p>
+                {% endif %}            
+            </div>            
+          </div>         
+        </div>
+    </div>
+
+
+  <div class=" p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-900 mt-10">
+
+
+    <form class="mt-6" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% include "includes/form_errors.html" %}
+      
+      <div class="">
+        <div class="justify-center w-32 flex px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+          <a href="{{ request.META.HTTP_REFERER }}" class="flex mr-2">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path clip-rule="evenodd" fill-rule="evenodd" d="M13.28 3.97a.75.75 0 010 1.06L6.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5a.75.75 0 010-1.06l7.5-7.5a.75.75 0 011.06 0zm6 0a.75.75 0 010 1.06L12.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5a.75.75 0 010-1.06l7.5-7.5a.75.75 0 011.06 0z"></path>
+            </svg>
+            <p>Back</p>
+          </a>
+
+        </div>
+
+        <div class="justify-evenly grid-cols-1 gap-8 mt-4 lg:flex lg:grid-cols-2">
+
+          <div class="lg:w-1/2 p-6 rounded-xl mb-2 ring-2 ring-gray-500">
+            <div class="flex">
+              <svg class="h-6 w-6 text-gray-700 dark:text-white mr-4"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+              <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Dependent Profile</h2>
+            </div>
+            <div class="grid grid-cols-1 gap-6 mt-4">   
+              <div class="grid grid-cols-1 gap-6 mt-4">
+             
+                <div class="">
+                  <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Full Name</label>
+                  <h2 class="text-gray-700 font-semibold text-sm dark:text-white">{{dependent.user.full_name}}</h2> 
+                </div>
+                <div class="">
+                  <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Email</label>
+                  <h2 class="text-gray-700 font-semibold text-sm dark:text-white">{{dependent.user.email}}</h2> 
+                </div>
+                <div class="">
+                  <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Phone Number</label>
+                  <h2 class="text-gray-700 font-semibold text-sm dark:text-white">{{dependent.user.phone_number}}</h2> 
+                </div>
+                <div class="">
+                  <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Parent Full Name</label>
+                  <h2 class="text-gray-700 font-semibold text-sm dark:text-white">{{dependent.parent.full_name}}</h2> 
+                </div>
+                <div class="">
+                  <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Parent Phone</label>
+                  <h2 class="text-gray-700 font-semibold text-sm dark:text-white">{{dependent.parent.phone_number}}</h2> 
+                </div>
+                <div class="">
+                  <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Parent Email</label>
+                  <h2 class="text-gray-700 font-semibold text-sm dark:text-white">{{dependent.parent.email}}</h2> 
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+              
+            <div class="lg:w-1/2 p-6 rounded-xl mb-2 ring-2 ring-gray-500">
+              <div class="flex">
+                <svg class="h-6 w-6 text-gray-700 dark:text-white mr-4"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M3 21v-13l9-4l9 4v13" />  <path d="M13 13h4v8h-10v-6h6" />  <path d="M13 21v-9a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v3" /></svg>
+                <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Organisation</h2>
+              </div>
+              
+              <div class="grid grid-cols-1 gap-6 mt-4">
+             
+                  <div class="">
+                    <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Organisation/College/School</label>
+                    <h2 class="text-gray-700 font-semibold text-sm dark:text-white">{{dependent.organisation}}</h2> 
+                  </div>
+
+                  <div class="">
+                    <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Classroom</label>
+                      {{form.organisation_class}}
+                  </div>
+                  <div class="">
+                    <label for="" class="text-gray-700 font-semibold text-sm dark:text-gray-600">Identity Card Number</label>
+                      {{form.identity}}
+                  </div>
+
+              </div>
+            </div>
+
+        </div>
+      </div>
+      <div class="mt-6">
+          <button class="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+             Update Dependent
+          </button>
+          
+      </div>
+    </form>
+
+
+
+  </div>
+</section>
+
+{% endblock content %}

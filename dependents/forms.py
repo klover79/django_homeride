@@ -10,11 +10,11 @@ from organisations.models import Organisation, OrganisationClass
 from crispy_forms.helper import FormHelper
 
 
-
 class DependentsCreateForm(forms.ModelForm):
    
     organisation = forms.ModelChoiceField(queryset=Organisation.objects.all())
     organisation_class = forms.ModelChoiceField(queryset=OrganisationClass.objects.all())
+    
 
     identity = forms.CharField(
     label="Identity Card",
@@ -31,6 +31,7 @@ class DependentsCreateForm(forms.ModelForm):
         self.fields['organisation_class'].widget.attrs.update({'class': 'block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'})
       
 class DependentUpdateForm(forms.ModelForm):
+
     
     identity = forms.CharField(
     label="Identity Card",
@@ -41,6 +42,24 @@ class DependentUpdateForm(forms.ModelForm):
         model = Dependent
         fields = ('identity',)
 
+    
+
+class DependentOrganisationUpdateForm(forms.ModelForm):
+    organisation_class = forms.ModelChoiceField(queryset=OrganisationClass.objects.all())
+
+    identity = forms.CharField(
+    label="Identity Card",
+    widget=forms.TextInput(attrs={'placeholder': 'XXXXXX-XX-XXXX' ,'class': 'block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'}),
+    )
+
+    class Meta:
+        model = Dependent
+        fields = ('identity','organisation_class', )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['organisation_class'].widget.attrs.update({'class': 'block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'})
+      
 
 class DependentCustomUserCreationForm(forms.ModelForm):
     first_name = forms.CharField(
@@ -70,6 +89,43 @@ class DependentCustomUserCreationForm(forms.ModelForm):
         field_classes = {"email": UsernameField}
     
   
+class SearchOrganisationsDependentForm(forms.Form):
+    option_page = [
+        (10,    '10 record'),
+        (20,    '20 record'),
+        (50,    '50 record'),
+        (100,   '100 record'),
+    ]
+
+    option_record = [
+        ('approved','Approved'),
+        ('rejected','Rejected'),
+        ('pending','Pending'),
+    ]
+    
+    search_field    = forms.CharField(
+        required=False,
+        label="Search Any Keyword",
+        widget=forms.TextInput(attrs={'placeholder': 'Enter any field keyword' ,'class': 'block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'}),
+    )
+    type_record     = forms.ChoiceField(
+        choices=option_record,widget=forms.RadioSelect(attrs={'class':'m-2 text-gray-700 dark:text-gray-500 dark:border-gray-700'}),
+        label='Type of Record'
+        )
+    page_record     = forms.ChoiceField(
+        required=False,
+        choices=option_page, 
+        label='Record Per Page'
+        )
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['page_record'].widget.attrs.update({'class': 'block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'})
+        
+      
+
+
+
 
         
 
